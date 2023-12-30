@@ -1,28 +1,25 @@
 <template>
   <div class="result">
-    <h1>Result</h1>
+    <h1>Результат вычислений</h1>
     <div class="result__tables">
       <div class="">
-        <h2>Дефолтная таблица</h2>
+        <h2>Цена таможни таблица</h2>
         <table class="result__table">
-          <tr v-for="(item, index) in CHOOSE_FORM_DEFAULT" :key="item.id">
-            <td class="result__td">{{ index }}</td>
-            <td class="result__td">{{ item }}</td>
+          <tr >
+            <td class="result__td">Цена таможни </td>
+            <td class="result__td">{{ CHOOSE_FORM_CUSTOMS.price }} $/kg</td>
+          </tr>
+          <tr >
+            <td class="result__td">Курс валюты </td>
+            <td class="result__td">{{ CHOOSE_FORM_CUSTOMS.rate }} грн</td>
+          </tr>
+          <tr >
+            <td class="result__td">Сумма до уплаты</td>
+            <td class="result__td">{{ CHOOSE_FORM_CUSTOMS.sum }}</td>
           </tr>
         </table>
       </div>
 
-      <div v-if="CHOOSE_FORM_DEFAULT.price_customs">
-        <h2>Цена с суммой таможни</h2>
-        <table class="result__table">
-          <tr v-for="(item, index) in CHOOSE_FORM_CUSTOMS" :key="item.id">
-            <template v-if="item">
-              <td class="result__td">{{ index }}</td>
-              <td class="result__td">{{ item }}</td>
-            </template>
-          </tr>
-        </table>
-      </div>
     </div>
 
     <button class="btn result__btn" @click="backToForm">Назад</button>
@@ -30,20 +27,19 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'index',
 
   computed: {
-    ...mapGetters(['CHOOSE_FORM_DEFAULT', 'CHOOSE_FORM_CUSTOMS']),
+    ...mapGetters(['CHOOSE_FORM_CUSTOMS']),
   },
 
   methods: {
     // ...mapMutations(['CLEAN_FORM']),
     ...mapActions(['CLEAN_FORM_STORE']),
     backToForm() {
-
       this.CLEAN_FORM_STORE();
     },
   },
